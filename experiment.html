@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<style> 
+div {
+    border: 2px solid red;
+    padding: 20px; 
+    width: 100px;
+	height: 100px;
+    resize: both;
+    overflow: auto;
+	position: absolute;
+	left:0px;
+	top:0px;
+}
+button{
+	position: absolute;
+	right:0px;
+	top:0px;
+}
+</style>
+<body>
+
+<img id="scream" src="winter.jpeg" draggable=false></div>
+<div id="cropDiv"></div>
+<button type="button" onclick="crop()">Crop</button>
+<script>
+window.onload = function() {
+	//var c = document.getElementById("myCanvas");
+	var c = document.createElement('canvas');
+	var ctx = c.getContext("2d");
+	
+	// create image to show cropped data
+	var cropped = new Image();
+	document.body.appendChild(cropped);
+	
+	console.log("loaded");
+	var drag=false;
+	var cropDiv = document.getElementById("cropDiv");
+	cropDiv.onmousedown=function(e){
+		console.log("mouse down "+e.clientX+" " +e.clientY);
+		drag=true;
+	}
+	window.onmousemove=function(e){
+		if(drag==true){
+			console.log("dragging");
+			cropDiv.style.left=e.clientX+'px';
+			cropDiv.style.top=e.clientY+'px';
+			//console.log("mouse move "+e.clientX+" " +e.clientY);
+		}
+	}
+	
+	cropDiv.onmouseup=function(){
+		console.log("mouse up");
+		drag=false;
+	}
+	
+	crop=function(){
+		//alert("cropping");
+		//console.log("in crop "+ parseInt(cropDiv.style.left)+" "+parseInt(cropDiv.style.top)+" " +parseInt(cropDiv.clientHeight)+" " +parseInt(cropDiv.clientWidth));
+		ctx.canvas.width  = parseInt(cropDiv.clientWidth);
+		ctx.canvas.height = parseInt(cropDiv.clientHeight);
+		var img = document.getElementById("scream");
+		ctx.drawImage(img, parseInt(cropDiv.style.left), parseInt(cropDiv.style.top), parseInt(cropDiv.clientWidth), parseInt(cropDiv.clientHeight), 0, 0, parseInt(cropDiv.clientWidth), parseInt(cropDiv.clientHeight));		
+		//or use offsetHeight and offsetWidth
+		
+		var fullQuality = ctx.canvas.toDataURL("image/jpeg", 1.0);
+		
+		cropped.src = fullQuality;
+	}
+};
+</script>
+
+</body>
+</html>
