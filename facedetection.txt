@@ -1,7 +1,0 @@
-http://wesbos.com/html5-video-face-detection-canvas-javascript/
-
-http://badassjs.com/post/1461943420/face-detection-in-javascript-via-html5-canvas
-
-http://stackoverflow.com/questions/7291065/any-library-for-face-recognition-in-javascript
-
-facedetection
